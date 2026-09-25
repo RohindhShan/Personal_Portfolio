@@ -51,8 +51,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, onOpenContact }) => {
             <div className="w-full h-full rounded-full overflow-hidden bg-slate-900 border-2 border-white/20 relative shadow-inner">
               <img 
                 src="/profile.jpg" 
-                alt={PORTFOLIO_DATA.personal.name}
-                className="w-full h-full object-cover object-center"
+                alt=""
+                className="w-full h-full object-cover object-top"
               />
             </div>
           </div>
