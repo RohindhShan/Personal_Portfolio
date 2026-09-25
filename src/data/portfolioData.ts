@@ -77,7 +77,7 @@ export const PORTFOLIO_DATA = {
     phone: "+91 7305733955",
     email: "rohindhshan@gmail.com",
     github: "https://github.com/rohindhshan",
-    linkedin: "https://linkedin.com/in/rohindh-s",
+    linkedin: "https://www.linkedin.com/in/rohindh-shanmugavel-16ss/",
     whatsapp: "https://wa.me/917305733955",
     availability: "Available for Immediate Full-Time Roles",
     yearsExperience: "Fresher with Internship Experience",

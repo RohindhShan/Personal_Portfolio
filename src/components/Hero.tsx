@@ -42,22 +42,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, onOpenContact }) => {
 
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
         
-        {/* CENTER PROFILE PICTURE CONTAINER */}
         <div className="relative mb-6 group flex flex-col items-center">
-          {/* Subtle animated multi-ring glow */}
-          <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse" />
-          
-          <div className="relative w-44 h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-full p-1 bg-gradient-to-b from-blue-400 via-indigo-500 to-slate-900 shadow-2xl flex items-center justify-center">
-            <div className="w-full h-full rounded-full overflow-hidden bg-slate-900 border-2 border-white/20 relative shadow-inner">
-              <img 
-                src="/profile.jpg" 
-                alt=""
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-          </div>
-
-          {/* Active Status Badge underneath avatar */}
+          {/* Active Status Badge */}
           <div className="mt-3.5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-xs text-slate-300 shadow-lg backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
