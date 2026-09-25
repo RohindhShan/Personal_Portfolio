@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import { 
   ArrowDown, 
@@ -23,43 +23,11 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenResume, onOpenContact }) => {
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [customPhoto, setCustomPhoto] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const savedPhoto = localStorage.getItem('rohindh_portfolio_photo');
-    if (savedPhoto) {
-      setCustomPhoto(savedPhoto);
-    }
-  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PORTFOLIO_DATA.personal.email);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2200);
-  };
-
-  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result as string;
-        setCustomPhoto(result);
-        try {
-          localStorage.setItem('rohindh_portfolio_photo', result);
-        } catch (e) {
-          console.warn('Local storage size exceeded for photo', e);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleResetPhoto = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCustomPhoto(null);
-    localStorage.removeItem('rohindh_portfolio_photo');
   };
 
   return (
@@ -81,140 +49,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, onOpenContact }) => {
           
           <div className="relative w-44 h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-full p-1 bg-gradient-to-b from-blue-400 via-indigo-500 to-slate-900 shadow-2xl flex items-center justify-center">
             <div className="w-full h-full rounded-full overflow-hidden bg-slate-900 border-2 border-white/20 relative shadow-inner">
-              {customPhoto ? (
-                <img 
-                  src={customPhoto} 
-                  alt={PORTFOLIO_DATA.personal.name}
-                  className="w-full h-full object-cover object-center"
-                />
-              ) : (
-                /* High-fidelity SVG illustration rendering Rohindh in navy blazer and white formal shirt with crisp sky blue studio background */
-                <div className="w-full h-full relative bg-gradient-to-b from-[#0EA5E9] via-[#0284C7] to-[#0369A1] flex items-center justify-center">
-                  <svg 
-                    viewBox="0 0 240 240" 
-                    className="w-full h-full drop-shadow-md"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    {/* Studio Gradient Lighting */}
-                    <radialGradient id="studioLight" cx="50%" cy="30%" r="60%">
-                      <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.8"/>
-                      <stop offset="100%" stopColor="#0284C7" stopOpacity="0"/>
-                    </radialGradient>
-                    <rect width="240" height="240" fill="url(#studioLight)" />
-
-                    {/* Dark Navy Suit Jacket Shoulders */}
-                    <path 
-                      d="M20 240 C35 185, 75 160, 120 160 C165 160, 205 185, 220 240 Z" 
-                      fill="#0F172A" 
-                    />
-                    <path 
-                      d="M20 240 C35 185, 60 165, 95 165 L108 240 Z" 
-                      fill="#1E293B" 
-                    />
-                    <path 
-                      d="M220 240 C205 185, 180 165, 145 165 L132 240 Z" 
-                      fill="#1E293B" 
-                    />
-
-                    {/* Crisp White Collared Shirt */}
-                    <polygon points="102,165 138,165 132,240 108,240" fill="#F8FAFC" />
-                    {/* Shirt Collar Flaps */}
-                    <polygon points="98,162 120,192 108,162" fill="#FFFFFF" />
-                    <polygon points="142,162 120,192 132,162" fill="#FFFFFF" />
-                    <polygon points="112,185 120,195 128,185" fill="#E2E8F0" />
-                    {/* Small Shirt Buttons */}
-                    <circle cx="120" cy="205" r="1.5" fill="#94A3B8" />
-                    <circle cx="120" cy="222" r="1.5" fill="#94A3B8" />
-
-                    {/* Neck */}
-                    <path d="M104 135 L104 165 Q120 172 136 165 L136 135 Z" fill="#9E6942" />
-                    <path d="M104 145 Q120 162 136 145 Z" fill="#885532" opacity="0.4" />
-
-                    {/* Face / Jawline */}
-                    <path 
-                      d="M80 82 Q78 135 120 148 Q162 135 160 82 Q160 52 120 52 Q80 52 80 82 Z" 
-                      fill="#A8734E" 
-                    />
-
-                    {/* Beard / Stubble shadow */}
-                    <path 
-                      d="M85 96 C84 130 100 146 120 147 C140 146 156 130 155 96 C148 110 138 116 120 116 C102 116 92 110 85 96 Z" 
-                      fill="#1E1E1E" 
-                      opacity="0.32" 
-                    />
-                    {/* Neat Mustache */}
-                    <path 
-                      d="M108 114 Q120 117 132 114 Q126 120 120 119 Q114 120 108 114 Z" 
-                      fill="#1E1E1E" 
-                      opacity="0.75" 
-                    />
-
-                    {/* Lips */}
-                    <path d="M110 125 Q120 128 130 125" stroke="#7A3F2A" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-
-                    {/* Nose */}
-                    <path d="M117 92 L116 108 Q120 111 124 108" stroke="#7D492A" strokeWidth="2" strokeLinecap="round" fill="none" />
-
-                    {/* Eyes & Eyebrows */}
-                    {/* Left Eye */}
-                    <ellipse cx="102" cy="88" rx="5" ry="3" fill="#FFFFFF" />
-                    <circle cx="102" cy="88" r="2.5" fill="#1C1917" />
-                    <circle cx="103" cy="87" r="0.8" fill="#FFFFFF" />
-                    <path d="M94 80 Q103 76 110 80" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" fill="none" />
-
-                    {/* Right Eye */}
-                    <ellipse cx="138" cy="88" rx="5" ry="3" fill="#FFFFFF" />
-                    <circle cx="138" cy="88" r="2.5" fill="#1C1917" />
-                    <circle cx="139" cy="87" r="0.8" fill="#FFFFFF" />
-                    <path d="M130 80 Q137 76 146 80" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" fill="none" />
-
-                    {/* Ears */}
-                    <path d="M78 86 Q72 96 80 106" stroke="#9E6942" strokeWidth="4" strokeLinecap="round" fill="none" />
-                    <path d="M162 86 Q168 96 160 106" stroke="#9E6942" strokeWidth="4" strokeLinecap="round" fill="none" />
-
-                    {/* Dark Textured Hair */}
-                    <path 
-                      d="M74 76 C70 42, 95 32, 120 32 C148 32, 168 42, 166 76 C160 62, 150 56, 138 58 C124 60, 114 62, 102 58 C88 54, 80 64, 74 76 Z" 
-                      fill="#121212" 
-                    />
-                    <path 
-                      d="M80 62 Q105 45 130 52 Q150 50 162 65" 
-                      stroke="#2A2A2A" 
-                      strokeWidth="3" 
-                      strokeLinecap="round" 
-                      fill="none" 
-                    />
-                  </svg>
-                </div>
-              )}
-
-              {/* Quick Photo Upload / Reset Overlay on Hover */}
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 text-white cursor-pointer"
-                title="Change or upload photo"
-              >
-                <Camera className="w-5 h-5 text-blue-400" />
-                <span className="text-[11px] font-medium tracking-wide">
-                  {customPhoto ? 'Change Photo' : 'Upload Photo'}
-                </span>
-                {customPhoto && (
-                  <span 
-                    onClick={handleResetPhoto}
-                    className="text-[10px] text-red-400 hover:text-red-300 underline mt-0.5"
-                  >
-                    Reset default
-                  </span>
-                )}
-              </button>
-
-              <input 
-                ref={fileInputRef}
-                type="file" 
-                accept="image/*" 
-                onChange={handlePhotoUpload} 
-                className="hidden" 
-                aria-label="Upload profile picture"
+              <img 
+                src="/profile.jpg" 
+                alt={PORTFOLIO_DATA.personal.name}
+                className="w-full h-full object-cover object-center"
               />
             </div>
           </div>
